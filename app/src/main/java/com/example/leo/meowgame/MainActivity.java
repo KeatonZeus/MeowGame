@@ -73,12 +73,14 @@ public class MainActivity extends AppCompatActivity {
         //選的那張卡                                       arraylist.get
         ImageView card = (ImageView)mCards.get(chosenCardNum);
 
-
+        //只能抽一張
+        if(RamdonNum!=99){
             //比對選的卡號跟ramdon改圖
             if(chosenCardNum == RamdonNum)
                 card.setImageResource(R.drawable.cat);
             else
                 card.setImageResource(R.drawable.dog);
-  
+        }
+        RamdonNum = 99;
     }
 }
