@@ -1,5 +1,6 @@
 package com.example.leo.meowgame;
 
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,14 +18,17 @@ public class MainActivity extends AppCompatActivity {
     TextView txt1;
     ArrayList mCards;
 
+    //random
     Random random;
     Integer RamdonNum;
 
+    //sound
+    MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //init
         mCards = new ArrayList<ImageView>();
 
         card1 = (ImageView)findViewById(R.id.card1);
@@ -36,7 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
         button1 = (Button)findViewById(R.id.button1);
         txt1 = (TextView)findViewById(R.id.txt1);
+
         random = new Random();
+
+        mediaPlayer = MediaPlayer.create(this,R.raw.cat_meow);
+
 
         //button onclick
         button1.setOnClickListener(new View.OnClickListener() {
@@ -76,11 +84,20 @@ public class MainActivity extends AppCompatActivity {
         //只能抽一張
         if(RamdonNum!=99){
             //比對選的卡號跟ramdon改圖
-            if(chosenCardNum == RamdonNum)
+            if(chosenCardNum == RamdonNum) {
                 card.setImageResource(R.drawable.cat);
-            else
+                startplayer();
+                txt1.setText("You Win!! Play again?");
+            }
+            else{
                 card.setImageResource(R.drawable.dog);
+                txt1.setText("You Lose!! Play again?");
+            }
         }
         RamdonNum = 99;
+    }
+
+    private void startplayer() {
+        mediaPlayer.start();
     }
 }
